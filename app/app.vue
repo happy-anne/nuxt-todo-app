@@ -1,6 +1,6 @@
 <script setup lang="ts">
 useHead({
-  title: '투두 앱',
+  title: 'Anne Todo',
   meta: [
     { name: 'description', content: 'Nuxt 4로 만든 간단한 투두 앱' },
   ],
@@ -23,7 +23,7 @@ const {
     <main class="mx-auto max-w-lg px-4 py-12 sm:py-16">
       <header class="mb-8 text-center">
         <h1 class="text-3xl font-bold tracking-tight text-slate-800">
-          투두 앱
+          Anne Todo
         </h1>
         <p class="mt-2 text-slate-500">
           Nuxt 4 · TypeScript · Tailwind
