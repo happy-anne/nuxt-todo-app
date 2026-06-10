@@ -23,7 +23,7 @@ const {
     <main class="mx-auto max-w-lg px-4 py-12 sm:py-16">
       <header class="mb-8 text-center">
         <h1 class="text-3xl font-bold tracking-tight text-slate-800">
-          Anne Todo ^^
+          Anne Todo ^^*
         </h1>
         <p class="mt-2 text-slate-500">
           Nuxt 4 · TypeScript · Tailwind
