@@ -7,6 +7,7 @@ useHead({
 })
 
 const {
+  todos,
   filter,
   filteredTodos,
   activeCount,
@@ -16,6 +17,20 @@ const {
   removeTodo,
   clearCompleted,
 } = useTodos()
+
+const showCalendar = ref(false)
+const selectedDate = ref<string | null>(null)
+
+const displayedTodos = computed(() => {
+  if (selectedDate.value) {
+    return todos.value.filter(t => t.dueDate === selectedDate.value)
+  }
+  return filteredTodos.value
+})
+
+function handleAdd(text: string, dueDate?: string) {
+  addTodo(text, dueDate)
+}
 </script>
 
 <template>
@@ -31,13 +46,41 @@ const {
       </header>
 
       <div class="space-y-6 rounded-2xl border border-slate-200/80 bg-white/80 p-6 shadow-xl shadow-slate-200/50 backdrop-blur-sm">
-        <TodoInput @add="addTodo" />
+        <TodoInput @add="handleAdd" />
+
+        <!-- 뷰 전환 탭 -->
+        <div class="flex rounded-xl border border-slate-200 p-1 gap-1">
+          <button
+            type="button"
+            class="flex-1 rounded-lg py-1.5 text-sm font-medium transition"
+            :class="!showCalendar ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-500 hover:text-slate-700'"
+            @click="showCalendar = false; selectedDate = null"
+          >
+            목록
+          </button>
+          <button
+            type="button"
+            class="flex-1 rounded-lg py-1.5 text-sm font-medium transition"
+            :class="showCalendar ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-500 hover:text-slate-700'"
+            @click="showCalendar = true"
+          >
+            달력
+          </button>
+        </div>
+
+        <!-- 달력 뷰 -->
+        <TodoCalendar
+          v-if="showCalendar"
+          :todos="todos"
+          @select-date="selectedDate = $event"
+        />
 
         <TodoList
-          :todos="filteredTodos"
+          :todos="displayedTodos"
           :filter="filter"
           :active-count="activeCount"
           :has-completed="hasCompleted"
+          :show-filter="!selectedDate"
           @update:filter="filter = $event"
           @toggle="toggleTodo"
           @remove="removeTodo"

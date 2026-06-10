@@ -3,6 +3,7 @@ export interface Todo {
   text: string
   completed: boolean
   createdAt: number
+  dueDate?: string // YYYY-MM-DD
 }
 
 export type TodoFilter = 'all' | 'active' | 'completed'
@@ -34,7 +35,7 @@ export function useTodos() {
     loaded.value = true
   }
 
-  function addTodo(text: string) {
+  function addTodo(text: string, dueDate?: string) {
     const trimmed = text.trim()
     if (!trimmed) return false
 
@@ -43,6 +44,7 @@ export function useTodos() {
       text: trimmed,
       completed: false,
       createdAt: Date.now(),
+      dueDate: dueDate || undefined,
     })
     persist()
     return true

@@ -36,11 +36,20 @@ const emit = defineEmits<{
       </svg>
     </button>
 
-    <span
-      class="flex-1 text-slate-700 transition"
-      :class="{ 'text-slate-400 line-through': todo.completed }"
-    >
-      {{ todo.text }}
+    <span class="flex-1 min-w-0">
+      <span
+        class="block text-slate-700 transition"
+        :class="{ 'text-slate-400 line-through': todo.completed }"
+      >
+        {{ todo.text }}
+      </span>
+      <span
+        v-if="todo.dueDate"
+        class="text-xs transition"
+        :class="todo.completed ? 'text-slate-300' : 'text-indigo-400'"
+      >
+        {{ todo.dueDate }}
+      </span>
     </span>
 
     <button

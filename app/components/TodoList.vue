@@ -6,6 +6,7 @@ defineProps<{
   filter: TodoFilter
   activeCount: number
   hasCompleted: boolean
+  showFilter?: boolean
 }>()
 
 const emit = defineEmits<{
@@ -46,7 +47,7 @@ const filters: { value: TodoFilter; label: string }[] = [
     >
       <span>{{ activeCount }}개 남음</span>
 
-      <div class="flex gap-1 rounded-lg bg-slate-100 p-1">
+      <div v-if="showFilter !== false" class="flex gap-1 rounded-lg bg-slate-100 p-1">
         <button
           v-for="item in filters"
           :key="item.value"
